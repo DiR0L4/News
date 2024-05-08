@@ -18,15 +18,23 @@
             <div class="col-12 col-md-8 col-lg-6 col-xl-5">
                 <div class="card shadow-2-strong" style="border-radius: 1rem;">
                     <div class="card-body p-5 text-center">
-
                         <h3 class="mb-5">Добро пожаловать</h3>
                         <form class="mb-5" action="MyController" method="post">
                             <input type="hidden" name="command" value="go_to_auth"/>
                             <button data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg btn-block" type="submit">Начать</button>
                         </form>
                         <h4>News</h4>
-                        <c:out value="${requestScope.mainNews.title}"/><br>
-                        <c:out value="${requestScope.mainNews.brief}"/><br>
+                        <div class="news-item">
+                            <c:forEach var="news" items="${requestScope.mainNews}">
+                                <img src="${news.imgPath}"
+                                     alt="Базовый курс Java" class="img-fluid">
+                                <div class="news-content">
+                                    <h3 class="news-title">${news.title}</h3>
+                                    <p class="news-text">${news.brief}</p>
+                                    <p class="news-info">${news.info}</p>
+                                </div>
+                            </c:forEach>
+                        </div>
                     </div>
                 </div>
             </div>

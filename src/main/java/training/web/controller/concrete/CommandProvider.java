@@ -15,6 +15,8 @@ public class CommandProvider {
         commands.put(CommandName.DO_REGISTRATION, new DoRegistration());
         commands.put(CommandName.NO_SUCH_COMMAND, new NoSuchCommand());
         commands.put(CommandName.GO_TO_INDEX_PAGE, new GoToIndexPage());
+        commands.put(CommandName.GO_TO_MAIN_PAGE, new GoToMainPage());
+        commands.put(CommandName.DO_LOGOUT, new DoLogout());
     }
 
     public Command takeCommand(String userCommand){

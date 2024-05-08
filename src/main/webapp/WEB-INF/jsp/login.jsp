@@ -33,8 +33,8 @@
 
             <!-- Checkbox -->
             <div class="form-check d-flex mb-2">
-              <input class="form-check-input" type="checkbox" value="" name="formRememberPass" id="formRememberPass" />
-              <label class="form-check-label" for="formRememberPass"> Запомнить пароль </label>
+              <input class="form-check-input" type="checkbox" value="remember-me" name="remember-me" id="remember-me" />
+              <label class="form-check-label" for="remember-me"> Запомнить пароль </label>
             </div>
 
             <button data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg btn-block mb-2" type="submit">Войти</button>

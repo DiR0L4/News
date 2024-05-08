@@ -2,6 +2,7 @@ package training.web.controller.concrete.impl;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -23,13 +24,19 @@ public class DoAuth implements Command {
         System.out.println("Perform user authentication and authorization. Login: " + login);
         User user = logic.checkAuth(new AuthInfo(login, password));
 
-        if (user != null) {
+        if(user != null) {
             HttpSession session = (HttpSession) request.getSession(true);
             session.setAttribute("user", user);
 
-            response.sendRedirect("MyController?command=go_to_index_page");
+            String rememberMe = request.getParameter("remember-me");
+            if (rememberMe != null) {
+                Cookie cookie = new Cookie("remember-me", user.getId()+""); //attention, realization is not safe
+                response.addCookie(cookie);
+            }
 
-        } else {
+            response.sendRedirect("MyController?command=go_to_main_page");
+
+        }else {
             response.sendRedirect("MyController?command=go_to_auth&authError=Wrong login or password!");
         }
     }

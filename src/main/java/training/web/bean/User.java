@@ -6,13 +6,20 @@ import java.util.Objects;
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    private int id;
     private String name;
     private String role;
 
-    public User(String name, String role) {
+    public User(int id, String name, String role) {
         super();
+        this.id= id;
         this.name = name;
         this.role = role;
+    }
+
+
+    public int getId() {
+        return id;
     }
 
     public String getName() {
