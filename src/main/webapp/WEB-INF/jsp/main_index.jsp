@@ -24,7 +24,7 @@
                             <button data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg btn-block" type="submit">Начать</button>
                         </form>
                         <h4>News</h4>
-                        <div class="news-item">
+                        <%--<div class="news-item">
                             <c:forEach var="news" items="${requestScope.mainNews}">
                                 <img src="${news.imgPath}"
                                      alt="Базовый курс Java" class="img-fluid">
@@ -34,7 +34,7 @@
                                     <p class="news-info">${news.info}</p>
                                 </div>
                             </c:forEach>
-                        </div>
+                        </div>--%>
                     </div>
                 </div>
             </div>

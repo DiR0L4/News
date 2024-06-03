@@ -15,13 +15,12 @@ public class GoToMainPage implements Command {
         HttpSession session = (HttpSession) request.getSession(false);
 
         if(session != null && session.getAttribute("user") != null) {
-            request.setAttribute("invitationMessage", "Hello, user!");
 
             RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/main.jsp");
             dispatcher.forward(request, response);
         }else {
 
-            response.sendRedirect("MyController?command=go_to_index_page&authError=You cannot perform this action. Please log in!");
+            response.sendRedirect("MyController?command=go_to_auth&authError=You cannot perform this action. Please log in!");
         }
     }
 }

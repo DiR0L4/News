@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -22,6 +23,9 @@
             <form action="MyController" method="post">
               <input type="hidden" name="command" value="do_auth"/>
               <div data-mdb-input-init class="form-outline mb-4">
+                <c:if test="${not (param.authError eq null)}">
+                  <span class="text-danger"><c:out value="${param.authError}"/></span>
+                </c:if>
               <input type="email" id="authEmail" name="authEmail" class="form-control form-control-lg" />
               <label class="form-label" for="authEmail">Почта</label>
             </div>

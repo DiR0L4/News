@@ -16,6 +16,6 @@ public class DoLogout implements Command {
         if (session != null && session.getAttribute("user") != null) {
             session.removeAttribute("user");
         }
-        response.sendRedirect("MyController?command=go_to_index_page&authError=You've been unlogged!");
+        response.sendRedirect("MyController?command=go_to_auth&authError=You've been unlogged!");
     }
 }

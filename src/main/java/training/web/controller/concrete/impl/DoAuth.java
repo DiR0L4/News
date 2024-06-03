@@ -21,7 +21,6 @@ public class DoAuth implements Command {
         String login = request.getParameter("authEmail");
         String password = request.getParameter("authPassword");
 
-        System.out.println("Perform user authentication and authorization. Login: " + login);
         User user = logic.checkAuth(new AuthInfo(login, password));
 
         if(user != null) {
@@ -30,14 +29,14 @@ public class DoAuth implements Command {
 
             String rememberMe = request.getParameter("remember-me");
             if (rememberMe != null) {
-                Cookie cookie = new Cookie("remember-me", user.getId()+""); //attention, realization is not safe
+                Cookie cookie = new Cookie("remember-me", user.getId()+"");
                 response.addCookie(cookie);
             }
 
             response.sendRedirect("MyController?command=go_to_main_page");
 
         }else {
-            response.sendRedirect("MyController?command=go_to_auth&authError=Wrong login or password!");
+            response.sendRedirect("MyController?command=go_to_auth&authError=Wrong email or password!");
         }
     }
 }

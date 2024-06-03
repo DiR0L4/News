@@ -23,7 +23,7 @@
 
 							<form class="row g-3 needs-validation" action="MyController"
 								method="post" novalidate>
-								
+
 								<input type="hidden" name="command" value="do_registration"/>
 								
 								<div class="col-md-6">
@@ -43,17 +43,17 @@
 									</div>
 								</div>
 								<div class="col-md-6">
-									<label for="city" class="form-label">Город</label>
-									<input type="text" class="form-control" id="city" name="city" required>
+									<label for="email" class="form-label">Почта</label>
+									<input type="text" class="form-control" id="email" name="email" required>
 								</div>
 								<div class="col-md-6">
 									<label class="form-label">Страна</label> <select
 										class="form-select" name="country" required>
 										<option selected disabled value="">Выберите страну...</option>
-										<option value="russia">Россия</option>
-										<option value="usa">США</option>
-										<option value="germany">Германия</option>
-										<option value="france">Франция</option>
+										<option value="Russia">Россия</option>
+										<option value="Belarus">Беларусь</option>
+										<option value="Ukraine">Украина</option>
+										<option value="Kazakhstan">Казахстан</option>
 									</select>
 								</div>
 								<div class="col-md-12">
@@ -82,7 +82,6 @@
 										class="btn btn-primary btn-lg btn-block" type="submit">Зарегистрироваться</button>
 								</div>
 							</form>
-
 						</div>
 					</div>
 				</div>
