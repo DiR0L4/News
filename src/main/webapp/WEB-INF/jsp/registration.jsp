@@ -1,5 +1,6 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+		 pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,8 +20,10 @@
 					<div class="card shadow-2-strong" style="border-radius: 1rem;">
 						<div class="card-body p-5 text-center">
 
-							<h3 class="mb-5">Регистрация</h3>
-
+							<h3 class="mb-3">Регистрация</h3>
+							<c:if test="${not (param.regError eq null)}">
+								<span class="text-danger"><c:out value="${param.regError}"/></span>
+							</c:if>
 							<form class="row g-3 needs-validation" action="MyController"
 								method="post" novalidate>
 
@@ -44,11 +47,11 @@
 								</div>
 								<div class="col-md-6">
 									<label for="email" class="form-label">Почта</label>
-									<input type="text" class="form-control" id="email" name="email" required>
+									<input type="email" class="form-control" id="email" name="email" required>
 								</div>
 								<div class="col-md-6">
 									<label class="form-label">Страна</label> <select
-										class="form-select" name="country" required>
+										class="form-select" name="country" id="country" required>
 										<option selected disabled value="">Выберите страну...</option>
 										<option value="Russia">Россия</option>
 										<option value="Belarus">Беларусь</option>
@@ -58,16 +61,16 @@
 								</div>
 								<div class="col-md-12">
 									<label class="form-label">Номер телефона</label> <input
-										type="text" class="form-control" name="phone" required>
+										type="text" class="form-control" name="phone" id="phone" required>
 								</div>
 								<div class="col-md-6">
-									<label class="form-label">Пароль</label> <input type="password"
-										class="form-control" name="password" required>
+									<label class="form-label">Пароль</label> <input placeholder="От 8 символов, хотя бы одна заглавная, строчная буквы и цифра" type="password"
+										class="form-control" name="password" id="password" required>
 								</div>
 								<div class="col-md-6">
 									<label class="form-label">Подтверждение пароля</label> <input
 										type="password" class="form-control"
-										name="password_confirmation" required>
+										name="password_confirmation" id="password_confirmation" required>
 								</div>
 								<div class="col-12">
 									<div class="form-check">

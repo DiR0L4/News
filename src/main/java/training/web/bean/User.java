@@ -7,52 +7,69 @@ public class User implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private int id;
+    private String login;
     private String name;
-    private String role;
+    private String email;
+    private String surname;
+    private String image;
 
-    public User(int id, String name, String role) {
-        super();
-        this.id= id;
-        this.name = name;
-        this.role = role;
+    public User() {
     }
 
+    public User(int id, String login, String name, String email, String surname, String image) {
+        this.id = id;
+        this.login = login;
+        this.name = name;
+        this.email = email;
+        this.surname = surname;
+        this.image = image;
+    }
 
     public int getId() {
         return id;
+    }
+
+    public String getLogin() {
+        return login;
     }
 
     public String getName() {
         return name;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
 
-    public String getRole() {
-        return role;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, role);
+    public void setImage(String image) {
+        this.image = image;
     }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        User other = (User) obj;
-        return Objects.equals(name, other.name) && Objects.equals(role, other.role);
-    }
-
 }

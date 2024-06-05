@@ -12,7 +12,7 @@ public class LogicStub {
 	public User checkAuth(AuthInfo authInfo) {
 
 		if("stas@mail.ru".equals(authInfo.getLogin())) {
-			return new User(1,"Стас", "admin");
+			//return new User(1,"Стас", "admin");
 		}
 		return null;
 	}

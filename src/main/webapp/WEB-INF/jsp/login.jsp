@@ -26,6 +26,9 @@
                 <c:if test="${not (param.authError eq null)}">
                   <span class="text-danger"><c:out value="${param.authError}"/></span>
                 </c:if>
+                <c:if test="${not (param.authMessage eq null)}">
+                  <span class="text-success"><c:out value="${param.authMessage}"/></span>
+                </c:if>
               <input type="email" id="authEmail" name="authEmail" class="form-control form-control-lg" />
               <label class="form-label" for="authEmail">Почта</label>
             </div>
