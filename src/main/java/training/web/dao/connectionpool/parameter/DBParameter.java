@@ -1,4 +1,4 @@
-package training.web.dao;
+package training.web.dao.connectionpool.parameter;
 
 public final class DBParameter {
     private DBParameter(){}
