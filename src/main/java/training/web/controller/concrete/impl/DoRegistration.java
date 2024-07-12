@@ -29,11 +29,13 @@ public class DoRegistration implements Command {
         RegistrationInfo registrationInfo = new RegistrationInfo(login, name, email, surname, country, phone, password, passwordConfirmation);
 
         try {
+            System.out.println("Entering service");
             userService.registration(registrationInfo);
             response.sendRedirect("MyController?command=go_to_auth&authMessage=Registration was successful, now you can log in");
         }catch (ServiceException e){
             String errorMessage = e.getMessage();
             response.sendRedirect("MyController?command=go_to_registration_page&regError=" + errorMessage);
         }
+
     }
 }
