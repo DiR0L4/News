@@ -7,15 +7,22 @@ import training.web.dao.DAOProvider;
 import training.web.dao.UserDAO;
 import training.web.service.ServiceException;
 import training.web.service.UserService;
+import training.web.service.util.Validator;
 
 public class UserServiceImpl implements UserService {
     UserDAO userDAO = DAOProvider.getInstance().getUserDao();
+    Validator validator = new Validator();
     @Override
     public boolean registration(RegistrationInfo regInfo) throws ServiceException {
         try {
             // Вызов записи в бд в DAO
-            userDAO.addUser(regInfo);
-            return true;
+            if(validator.validateRegistration(regInfo))
+            {
+                return userDAO.addUser(regInfo);
+            }
+            else {
+                throw new ServiceException("The fields are filled in incorrectly");
+            }
         } catch (Exception e) {
             throw new ServiceException(e);
         }
