@@ -38,11 +38,11 @@ public final class ConnectionPool {
     private BlockingQueue<Connection> connectionQueue;
     private BlockingQueue<Connection> givenAwayConQueue;
 
-    private String driverName;
-    private String url;
-    private String login;
-    private String password;
-    private int poolSize;
+    private final String driverName;
+    private final String url;
+    private final String login;
+    private final String password;
+    private final int poolSize;
 
     private ConnectionPool() {
         DBResourceManager dbResourceManager = DBResourceManager.getInstance();
@@ -77,7 +77,7 @@ public final class ConnectionPool {
             Connection connection = DriverManager.getConnection(url, login, password);
             PooledConnection pooledConnection = new PooledConnection(connection);
             connectionQueue.add(pooledConnection);
-            System.out.println("New connection added");
+            System.out.println("New connection added: " + pooledConnection);
         }
     }
 
@@ -96,8 +96,8 @@ public final class ConnectionPool {
         closeConnestionsQueue(connectionQueue);
     }
 
-    public Connection takeConection() throws ConnectionPoolException {
-        Connection connection;
+    public Connection takeConnection() throws ConnectionPoolException {
+        Connection connection = null;
         try {
             connection = connectionQueue.take();
             givenAwayConQueue.add(connection);
@@ -114,13 +114,14 @@ public final class ConnectionPool {
                 rs.close();
             }
         } catch (SQLException e) {
-            // logger
+            System.out.println("An error occurred while closing result set");
         }
         try {
             if (st != null) {
                 st.close();
             }
         } catch (SQLException e) {
+            System.out.println("An error occurred while closing statement");
             // logger
         }
         try {
@@ -128,6 +129,7 @@ public final class ConnectionPool {
                 con.close();
             }
         } catch (SQLException e) {
+            System.out.println("An error occurred while closing connection");
             // logger
         }
     }
@@ -138,6 +140,7 @@ public final class ConnectionPool {
                 st.close();
             }
         } catch (SQLException e) {
+            System.out.println("An error occurred while closing statement");
             // logger
         }
         try {
@@ -145,6 +148,7 @@ public final class ConnectionPool {
                 con.close();
             }
         } catch (SQLException e) {
+            System.out.println("An error occurred while closing connection");
             // logger
         }
     }
