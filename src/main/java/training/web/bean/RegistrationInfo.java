@@ -108,11 +108,11 @@ public class RegistrationInfo implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         RegistrationInfo that = (RegistrationInfo) o;
-        return Objects.equals(login, that.login) && Objects.equals(name, that.name) && Objects.equals(email, that.email) && Objects.equals(surname, that.surname) && Objects.equals(country, that.country) && Objects.equals(phone, that.phone) && Objects.equals(password, that.password) && Objects.equals(confirmPassword, that.confirmPassword);
+        return roleId == that.roleId && Objects.equals(login, that.login) && Objects.equals(name, that.name) && Objects.equals(email, that.email) && Objects.equals(surname, that.surname) && Objects.equals(country, that.country) && Objects.equals(phone, that.phone) && Objects.equals(password, that.password) && Objects.equals(confirmPassword, that.confirmPassword);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(login, name, email, surname, country, phone, password, confirmPassword);
+        return Objects.hash(login, name, email, surname, country, phone, password, confirmPassword, roleId);
     }
 }

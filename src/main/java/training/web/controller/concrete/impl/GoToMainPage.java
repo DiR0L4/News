@@ -19,7 +19,6 @@ public class GoToMainPage implements Command {
             RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/main.jsp");
             dispatcher.forward(request, response);
         }else {
-
             response.sendRedirect("MyController?command=go_to_auth&authError=You cannot perform this action. Please log in!");
         }
     }

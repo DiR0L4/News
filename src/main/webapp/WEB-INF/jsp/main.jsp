@@ -26,7 +26,7 @@
             <div class="col-12 col-md-12">
                 <div class="card shadow-2-strong" style="border-radius: 1rem;">
                     <div class="card-body p-5 text-center">
-                        <h3 class="mb-5">Рады приветствовать Вас на нашем портале, <c:out value="${sessionScope.user.name}"/></h3>
+                        <h3 class="mb-5">Рады приветствовать Вас на нашем портале, <c:out value="${sessionScope.user.getLogin()}"/></h3>
                         <a href="MyController?command=do_logout">Выйти</a>
                     </div>
                 </div>
