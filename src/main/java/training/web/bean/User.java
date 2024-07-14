@@ -62,4 +62,17 @@ public class User implements Serializable {
     public void setImage(String image) {
         this.image = image;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return id == user.id && roleId == user.roleId && Objects.equals(login, user.login) && Objects.equals(email, user.email) && Objects.equals(image, user.image);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, login, email, roleId, image);
+    }
 }
