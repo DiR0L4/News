@@ -14,11 +14,12 @@ public class RegistrationInfo implements Serializable {
     private String phone;
     private String password;
     private String confirmPassword;
+    private int roleId;
 
     public RegistrationInfo() {
     }
 
-    public RegistrationInfo(String login, String name, String email, String surname, String country, String phone, String password, String confirmPassword) {
+    public RegistrationInfo(String login, String name, String email, String surname, String country, String phone, String password, String confirmPassword, int roleId) {
         this.login = login;
         this.name = name;
         this.email = email;
@@ -27,6 +28,7 @@ public class RegistrationInfo implements Serializable {
         this.phone = phone;
         this.password = password;
         this.confirmPassword = confirmPassword;
+        this.roleId = roleId;
     }
 
     public String getLogin() {
@@ -61,6 +63,10 @@ public class RegistrationInfo implements Serializable {
         return confirmPassword;
     }
 
+    public int getRoleId() {
+        return roleId;
+    }
+
     public void setLogin(String login) {
         this.login = login;
     }
@@ -91,6 +97,10 @@ public class RegistrationInfo implements Serializable {
 
     public void setConfirmPassword(String confirmPassword) {
         this.confirmPassword = confirmPassword;
+    }
+
+    public void setRoleId(int roleId) {
+        this.roleId = roleId;
     }
 
     @Override
