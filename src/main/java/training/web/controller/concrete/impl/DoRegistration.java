@@ -6,9 +6,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import training.web.bean.RegistrationInfo;
 import training.web.controller.concrete.Command;
+import training.web.dao.exception.EmailAlreadyExistsException;
 import training.web.service.ServiceException;
 import training.web.service.ServiceProvider;
 import training.web.service.UserService;
+import training.web.service.exception.ValidationException;
 import training.web.service.util.Validator;
 
 import java.io.IOException;
@@ -25,16 +27,19 @@ public class DoRegistration implements Command {
         String phone = request.getParameter("phone");
         String password = request.getParameter("password");
         String passwordConfirmation = request.getParameter("password_confirmation");
+        String roleId = request.getParameter("role");
 
-        RegistrationInfo registrationInfo = new RegistrationInfo(login, name, email, surname, country, phone, password, passwordConfirmation);
+        RegistrationInfo registrationInfo = new RegistrationInfo(login, name, email, surname, country, phone, password, passwordConfirmation, Integer.parseInt(roleId));
 
         try {
-            System.out.println("Entering service");
             userService.registration(registrationInfo);
             response.sendRedirect("MyController?command=go_to_auth&authMessage=Registration was successful, now you can log in");
         }catch (ServiceException e){
-            String errorMessage = e.getMessage();
-            response.sendRedirect("MyController?command=go_to_registration_page&regError=" + errorMessage);
+            response.sendRedirect("MyController?command=go_to_registration_page&regError=Error occurred during registration");
+        }catch (EmailAlreadyExistsException e){
+            response.sendRedirect("MyController?command=go_to_registration_page&regError=Email " + email + " already exists");
+        }catch (ValidationException e){
+            response.sendRedirect("MyController?command=go_to_registration_page&regError=Fields are filled incorrectly");
         }
 
     }
