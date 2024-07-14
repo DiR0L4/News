@@ -72,6 +72,16 @@
 										type="password" class="form-control"
 										name="password_confirmation" id="password_confirmation" required>
 								</div>
+								<div class="col-md-3"></div>
+								<div class="col-md-6">
+									<label class="form-label">Роль</label> <select
+										class="form-select" name="role" id="role" required>
+									<option selected disabled value="">Выберите роль...</option>
+									<option value="3">Читатель</option>
+									<option value="2">Автор</option>
+								</select>
+								</div>
+								<div class="col-md-3"></div>
 								<div class="col-12">
 									<div class="form-check">
 										<input class="form-check-input" type="checkbox" value=""
