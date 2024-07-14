@@ -28,6 +28,9 @@ public class DoRegistration implements Command {
         String password = request.getParameter("password");
         String passwordConfirmation = request.getParameter("password_confirmation");
         String roleId = request.getParameter("role");
+        if(roleId == null){
+            roleId = "3";
+        }
 
         RegistrationInfo registrationInfo = new RegistrationInfo(login, name, email, surname, country, phone, password, passwordConfirmation, Integer.parseInt(roleId));
 
@@ -37,7 +40,7 @@ public class DoRegistration implements Command {
         }catch (ServiceException e){
             response.sendRedirect("MyController?command=go_to_registration_page&regError=Error occurred during registration");
         }catch (EmailAlreadyExistsException e){
-            response.sendRedirect("MyController?command=go_to_registration_page&regError=Email " + email + " already exists");
+            response.sendRedirect("MyController?command=go_to_registration_page&regError=User with email " + email + " already exists");
         }catch (ValidationException e){
             response.sendRedirect("MyController?command=go_to_registration_page&regError=Fields are filled incorrectly");
         }
