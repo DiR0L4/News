@@ -8,20 +8,18 @@ public class User implements Serializable {
 
     private int id;
     private String login;
-    private String name;
     private String email;
-    private String surname;
+    private int roleId;
     private String image;
 
     public User() {
     }
 
-    public User(int id, String login, String name, String email, String surname, String image) {
+    public User(int id, String login, String email, int roleId, String image) {
         this.id = id;
         this.login = login;
-        this.name = name;
         this.email = email;
-        this.surname = surname;
+        this.roleId = roleId;
         this.image = image;
     }
 
@@ -33,16 +31,12 @@ public class User implements Serializable {
         return login;
     }
 
-    public String getName() {
-        return name;
-    }
-
     public String getEmail() {
         return email;
     }
 
-    public String getSurname() {
-        return surname;
+    public int getRoleId() {
+        return roleId;
     }
 
     public String getImage() {
@@ -57,16 +51,12 @@ public class User implements Serializable {
         this.login = login;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public void setEmail(String email) {
         this.email = email;
     }
 
-    public void setSurname(String surname) {
-        this.surname = surname;
+    public void setRoleId(int roleId) {
+        this.roleId = roleId;
     }
 
     public void setImage(String image) {
