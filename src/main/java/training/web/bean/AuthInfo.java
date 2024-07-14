@@ -6,25 +6,25 @@ import java.util.Objects;
 public class AuthInfo implements Serializable {
     private static final long serialVersionUID = 1L;
 
-    private String login;
+    private String email;
     private String password;
 
     public AuthInfo() {
 
     }
 
-    public AuthInfo(String login, String password) {
+    public AuthInfo(String email, String password) {
         super();
-        this.login = login;
+        this.email = email;
         this.password = password;
     }
 
-    public String getLogin() {
-        return login;
+    public String getEmail() {
+        return email;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
@@ -37,7 +37,7 @@ public class AuthInfo implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(login, password);
+        return Objects.hash(email, password);
     }
 
     @Override
@@ -49,7 +49,7 @@ public class AuthInfo implements Serializable {
         if (getClass() != obj.getClass())
             return false;
         AuthInfo other = (AuthInfo) obj;
-        return Objects.equals(login, other.login) && Objects.equals(password, other.password);
+        return Objects.equals(email, other.email) && Objects.equals(password, other.password);
     }
 
 }
