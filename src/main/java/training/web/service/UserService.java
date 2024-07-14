@@ -8,5 +8,5 @@ import training.web.service.exception.ValidationException;
 
 public interface UserService {
     boolean registration(RegistrationInfo regInfo) throws ServiceException, EmailAlreadyExistsException, ValidationException;
-    User authorization(AuthInfo authInfo) throws ServiceException;
+    User authorization(AuthInfo authInfo) throws ServiceException, ValidationException;
 }

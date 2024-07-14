@@ -1,6 +1,8 @@
 package training.web.dao.impl;
 
+import training.web.bean.AuthInfo;
 import training.web.bean.RegistrationInfo;
+import training.web.bean.User;
 import training.web.dao.DAOException;
 import training.web.dao.UserDAO;
 import training.web.dao.connectionpool.ConnectionPool;
@@ -14,6 +16,9 @@ public class SQLUserDAO implements UserDAO {
     private final ConnectionPool connectionPool = ConnectionPool.getInstance();
 
     private final static String USERS_ID_COLUMN = "id";
+    private final static String USERS_LOGIN_COLUMN = "login";
+    private final static String USERS_EMAIL_COLUMN = "email";
+    private final static String ROLES_USERS_ROLES_ID_COLUMN = "roles_id";
 
     private final static String INSERT_USER_SQL = "INSERT INTO users (login, password, email) VALUES (?, ?, ?)";
 
@@ -45,10 +50,10 @@ public class SQLUserDAO implements UserDAO {
             }
 
             return true;
-        } catch (SQLException e) {
+        }catch (SQLException e) {
             throw new DAOException(e);
-        } catch (ConnectionPoolException e){
-            throw new DAOException("Failed to open connection", e);
+        }catch (ConnectionPoolException e){
+            throw new DAOException("Error occurred while adding user", e);
         }finally {
             connectionPool.closeConnection(keys, statementUsers, connection);
         }
@@ -96,7 +101,7 @@ public class SQLUserDAO implements UserDAO {
     }
 
     private final static String INSERT_ROLES_USERS_SQL = "INSERT INTO roles_users (users_id, roles_id) VALUES (?, ?)";
-    public boolean rolesUsersInsert(int userId, RegistrationInfo regInfo) throws DAOException{
+    private boolean rolesUsersInsert(int userId, RegistrationInfo regInfo) throws DAOException{
         Connection connection = null;
         PreparedStatement statementRolesUsers = null;
         try{
@@ -114,6 +119,43 @@ public class SQLUserDAO implements UserDAO {
             throw new DAOException("Error occurred during inserting user info.", e);
         } finally {
             connectionPool.closeConnection(statementRolesUsers, connection);
+        }
+    }
+
+    private final static String SELECT_AUTH_SQL = "SELECT id, login, email, roles_id FROM users " +
+            "JOIN roles_users ON roles_users.users_id = users.id " +
+            "WHERE users.email = ? AND users.password = ?";
+    @Override
+    public User authUser(AuthInfo authInfo) throws DAOException {
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            connection = connectionPool.takeConnection();
+
+            statement = connection.prepareStatement(SELECT_AUTH_SQL);
+            statement.setString(1, authInfo.getEmail());
+            statement.setString(2, authInfo.getPassword());
+
+            resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                int userId = resultSet.getInt(USERS_ID_COLUMN);
+                String login = resultSet.getString(USERS_LOGIN_COLUMN);
+                String email = resultSet.getString(USERS_EMAIL_COLUMN);
+                int roleId = resultSet.getInt(ROLES_USERS_ROLES_ID_COLUMN);
+
+                connectionPool.closeConnection(resultSet, statement, connection);
+
+                return new User(userId, login, email, roleId, "");
+            }
+
+            return null;
+        }catch (SQLException e) {
+            throw new DAOException(e);
+        }catch (ConnectionPoolException e){
+            throw new DAOException("Error occurred while user authentication", e);
+        }finally {
+            connectionPool.closeConnection(resultSet, statement, connection);
         }
     }
 }

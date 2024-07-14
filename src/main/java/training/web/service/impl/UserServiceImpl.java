@@ -20,11 +20,10 @@ public class UserServiceImpl implements UserService {
         try {
             if(validator.validateRegistration(regInfo))
             {
-                System.out.println("Entered service");
                 return userDAO.addUser(regInfo);
             }
             else {
-                throw new ValidationException("The fields are filled in incorrectly");
+                throw new ValidationException("The fields are filled incorrectly");
             }
         } catch (DAOException e) {
             throw new ServiceException("Error occurred during registration", e);
@@ -32,7 +31,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User authorization(AuthInfo authInfo) throws ServiceException {
-        return null;
+    public User authorization(AuthInfo authInfo) throws ServiceException, ValidationException {
+        try {
+            if(validator.validateAuth(authInfo))
+            {
+                return userDAO.authUser(authInfo);
+            }
+            else {
+                throw new ValidationException("The fields are filled incorrectly");
+            }
+        } catch (DAOException e) {
+            throw new ServiceException("Error occurred during authorization", e);
+        }
     }
 }

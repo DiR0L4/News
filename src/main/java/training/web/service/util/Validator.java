@@ -1,5 +1,6 @@
 package training.web.service.util;
 
+import training.web.bean.AuthInfo;
 import training.web.bean.RegistrationInfo;
 
 import java.util.regex.Pattern;
@@ -33,6 +34,16 @@ public class Validator {
             return false;
         }
         if (!validateConfirmPassword(registrationInfo.getPassword(), registrationInfo.getConfirmPassword())) {
+            return false;
+        }
+        return true;
+    }
+
+    public boolean validateAuth(AuthInfo authInfo){
+        if (!validateEmail(authInfo.getEmail())) {
+            return false;
+        }
+        if (!validatePassword(authInfo.getPassword())) {
             return false;
         }
         return true;
