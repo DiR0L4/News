@@ -17,6 +17,10 @@ public class CommandProvider {
         commands.put(CommandName.GO_TO_INDEX_PAGE, new GoToIndexPage());
         commands.put(CommandName.GO_TO_MAIN_PAGE, new GoToMainPage());
         commands.put(CommandName.DO_LOGOUT, new DoLogout());
+        commands.put(CommandName.GO_TO_ADD_NEWS_PAGE, new GoToAddNewsPage());
+        commands.put(CommandName.DO_ADD_NEWS, new DoAddNews());
+        commands.put(CommandName.DO_CHANGE_LOCALE, new DoChangeLocale());
+        commands.put(CommandName.GO_TO_ERROR_PAGE, new GoToErrorPage());
     }
 
     public Command takeCommand(String userCommand){
