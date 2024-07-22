@@ -1,6 +1,7 @@
 package training.web.service.util;
 
 import training.web.bean.AuthInfo;
+import training.web.bean.News;
 import training.web.bean.RegistrationInfo;
 
 import java.util.regex.Pattern;
@@ -48,6 +49,7 @@ public class Validator {
         }
         return true;
     }
+
     private boolean validateName(String name) {
         return NAME_PATTERN.matcher(name).matches();
     }
