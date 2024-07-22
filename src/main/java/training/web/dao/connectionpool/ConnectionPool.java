@@ -26,10 +26,13 @@ import java.util.Properties;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executor;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public final class ConnectionPool {
 
     private static final ConnectionPool instance = new ConnectionPool();
+    private static final Logger LOGGER = Logger.getLogger(ConnectionPool.class.getName());
 
     public static ConnectionPool getInstance() {
         return instance;
@@ -55,15 +58,13 @@ public final class ConnectionPool {
         this.poolSize = Integer.parseInt(dbResourceManager.getValue(DBParameter.DB_POOL_SIZE));
         try {
             initPoolData();
-            // logger
+            LOGGER.log(Level.INFO, "Connection pool initialized successfully");
         } catch (ClassNotFoundException e) {
-            //logger
-            System.out.println("DB driver not found");
+            LOGGER.log(Level.SEVERE, "DB driver not found");
             throw new RuntimeException("DB driver not found", e);
         } catch (SQLException e){
-            // logger
-            System.out.println("Error while initializing connection");
-            throw new RuntimeException("Error while initializing connection", e);
+            LOGGER.log(Level.SEVERE, "Error while initializing connection");
+            throw new RuntimeException(e);
         }
     }
 
@@ -77,7 +78,7 @@ public final class ConnectionPool {
             Connection connection = DriverManager.getConnection(url, login, password);
             PooledConnection pooledConnection = new PooledConnection(connection);
             connectionQueue.add(pooledConnection);
-            System.out.println("New connection added: " + pooledConnection);
+            LOGGER.log(Level.INFO, "New connection added: " + pooledConnection);
         }
     }
 
@@ -86,8 +87,9 @@ public final class ConnectionPool {
         try{
             clearConnectionQueue();
             DriverManager.deregisterDriver(DriverManager.getDriver(driverName));
+            LOGGER.log(Level.INFO, "Driver removed:" + driverName);
         }catch (SQLException e){
-            // logger
+            LOGGER.log(Level.SEVERE, "DB access error");
         }
     }
 
@@ -101,9 +103,10 @@ public final class ConnectionPool {
         try {
             connection = connectionQueue.take();
             givenAwayConQueue.add(connection);
+            LOGGER.log(Level.INFO, "Connection obtained");
         } catch (InterruptedException e) {
-            System.out.println("An error occurred while trying to obtain a connection");
-            throw new ConnectionPoolException("An error occurred while trying to obtain a connection", e);
+            LOGGER.log(Level.SEVERE, "An error occurred while trying to obtain a connection", e);
+            throw new ConnectionPoolException(e);
         }
         return connection;
     }
@@ -114,23 +117,21 @@ public final class ConnectionPool {
                 rs.close();
             }
         } catch (SQLException e) {
-            System.out.println("An error occurred while closing result set");
+            LOGGER.log(Level.SEVERE, "An error occurred while closing result set", e);
         }
         try {
             if (st != null) {
                 st.close();
             }
         } catch (SQLException e) {
-            System.out.println("An error occurred while closing statement");
-            // logger
+            LOGGER.log(Level.SEVERE, "An error occurred while closing statement", e);
         }
         try {
             if (con != null) {
                 con.close();
             }
         } catch (SQLException e) {
-            System.out.println("An error occurred while closing connection");
-            // logger
+            LOGGER.log(Level.SEVERE, "An error occurred while closing connection", e);
         }
     }
 
@@ -140,16 +141,14 @@ public final class ConnectionPool {
                 st.close();
             }
         } catch (SQLException e) {
-            System.out.println("An error occurred while closing statement");
-            // logger
+            LOGGER.log(Level.SEVERE, "An error occurred while closing statement", e);
         }
         try {
             if (con != null) {
                 con.close();
             }
         } catch (SQLException e) {
-            System.out.println("An error occurred while closing connection");
-            // logger
+            LOGGER.log(Level.SEVERE, "An error occurred while closing connection", e);
         }
     }
 
@@ -196,7 +195,7 @@ public final class ConnectionPool {
             if (!connectionQueue.offer(this)) {
                 throw new SQLException("Connection does not exist");
             }
-            // logger
+            LOGGER.log(Level.SEVERE, "Connection closed");
         }
 
         public void commit() throws SQLException {
