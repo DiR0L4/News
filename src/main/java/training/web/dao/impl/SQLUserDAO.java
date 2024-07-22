@@ -50,11 +50,9 @@ public class SQLUserDAO implements UserDAO {
             }
 
             return true;
-        }catch (SQLException e) {
+        } catch (ConnectionPoolException | SQLException e){
             throw new DAOException(e);
-        }catch (ConnectionPoolException e){
-            throw new DAOException("Error occurred while adding user", e);
-        }finally {
+        } finally {
             connectionPool.closeConnection(keys, statementUsers, connection);
         }
     }
@@ -94,7 +92,7 @@ public class SQLUserDAO implements UserDAO {
 
             return true;
         } catch (ConnectionPoolException | SQLException e){
-            throw new DAOException("Error occurred during inserting user info.", e);
+            throw new DAOException(e);
         } finally {
             connectionPool.closeConnection(statementUserInfo, connection);
         }
@@ -116,7 +114,7 @@ public class SQLUserDAO implements UserDAO {
 
             return true;
         } catch (ConnectionPoolException | SQLException e){
-            throw new DAOException("Error occurred during inserting user info.", e);
+            throw new DAOException(e);
         } finally {
             connectionPool.closeConnection(statementRolesUsers, connection);
         }
@@ -150,11 +148,9 @@ public class SQLUserDAO implements UserDAO {
             }
 
             return null;
-        }catch (SQLException e) {
+        } catch (ConnectionPoolException | SQLException e){
             throw new DAOException(e);
-        }catch (ConnectionPoolException e){
-            throw new DAOException("Error occurred while user authentication", e);
-        }finally {
+        } finally {
             connectionPool.closeConnection(resultSet, statement, connection);
         }
     }
