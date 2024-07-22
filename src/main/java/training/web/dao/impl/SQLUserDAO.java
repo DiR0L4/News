@@ -154,4 +154,37 @@ public class SQLUserDAO implements UserDAO {
             connectionPool.closeConnection(resultSet, statement, connection);
         }
     }
+
+    private final static String SELECT_REMEMBER_ME_SQL = "SELECT id, login, email, roles_id FROM users " +
+            "JOIN roles_users ON roles_users.users_id = users.id " +
+            "WHERE users.login = ?";
+    @Override
+    public User rememberMe(String login) throws DAOException {
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            connection = connectionPool.takeConnection();
+
+            statement = connection.prepareStatement(SELECT_REMEMBER_ME_SQL);
+            statement.setString(1, login);
+
+            resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                int userId = resultSet.getInt(USERS_ID_COLUMN);
+                String email = resultSet.getString(USERS_EMAIL_COLUMN);
+                int roleId = resultSet.getInt(ROLES_USERS_ROLES_ID_COLUMN);
+
+                connectionPool.closeConnection(resultSet, statement, connection);
+
+                return new User(userId, login, email, roleId, "");
+            }
+
+            return null;
+        } catch (ConnectionPoolException | SQLException e){
+            throw new DAOException(e);
+        } finally {
+            connectionPool.closeConnection(resultSet, statement, connection);
+        }
+    }
 }

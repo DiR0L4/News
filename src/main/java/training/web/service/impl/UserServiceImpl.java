@@ -44,4 +44,13 @@ public class UserServiceImpl implements UserService {
             throw new ServiceException("Error occurred during authorization", e);
         }
     }
+
+    @Override
+    public User rememberMe(String login) throws ServiceException {
+        try {
+            return userDAO.rememberMe(login);
+        } catch (DAOException e) {
+            throw new ServiceException("An error occurred while trying to get tags", e);
+        }
+    }
 }

@@ -8,4 +8,5 @@ import training.web.dao.exception.EmailAlreadyExistsException;
 public interface UserDAO {
     boolean addUser(RegistrationInfo regInfo) throws DAOException, EmailAlreadyExistsException;
     User authUser(AuthInfo authInfo) throws DAOException;
+    User rememberMe(String login) throws DAOException;
 }
