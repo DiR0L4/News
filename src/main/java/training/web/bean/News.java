@@ -5,7 +5,7 @@ import java.util.Objects;
 
 public class News implements Serializable {
     private static final long serialVersionUID = 1L;
-
+    private int id;
     private String title;
     private String brief;
     private String info;
@@ -14,12 +14,21 @@ public class News implements Serializable {
     public News() {
     }
 
-    public News(String title, String brief, String info, String imgPath) {
+    public News(int id, String title, String brief, String info, String imgPath) {
         super();
+        this.id = id;
         this.title = title;
         this.brief = brief;
         this.info = info;
         this.imgPath = imgPath;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -55,26 +64,15 @@ public class News implements Serializable {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        News news = (News) o;
+        return id == news.id && Objects.equals(title, news.title) && Objects.equals(brief, news.brief) && Objects.equals(info, news.info) && Objects.equals(imgPath, news.imgPath);
+    }
+
+    @Override
     public int hashCode() {
         return Objects.hash(brief, imgPath, info, title);
     }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        News other = (News) obj;
-        return Objects.equals(brief, other.brief) && Objects.equals(imgPath, other.imgPath)
-                && Objects.equals(info, other.info) && Objects.equals(title, other.title);
-    }
-
-    @Override
-    public String toString() {
-        return "News [title=" + title + ", brief=" + brief + ", info=" + info + ", imgPath=" + imgPath + "]";
-    }
-
 }
