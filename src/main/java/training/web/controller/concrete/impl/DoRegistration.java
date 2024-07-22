@@ -16,7 +16,7 @@ import training.web.service.util.Validator;
 import java.io.IOException;
 
 public class DoRegistration implements Command {
-    UserService userService = ServiceProvider.getInstance().getUserService();
+    private final UserService userService = ServiceProvider.getInstance().getUserService();
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String name = request.getParameter("name");

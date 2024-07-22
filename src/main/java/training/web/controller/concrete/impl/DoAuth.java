@@ -17,7 +17,7 @@ import training.web.service.exception.ValidationException;
 import java.io.IOException;
 
 public class DoAuth implements Command {
-    UserService userService = ServiceProvider.getInstance().getUserService();
+    private final UserService userService = ServiceProvider.getInstance().getUserService();
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String email = request.getParameter("authEmail");
