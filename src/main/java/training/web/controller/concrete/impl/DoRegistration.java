@@ -15,19 +15,21 @@ import training.web.service.util.Validator;
 
 import java.io.IOException;
 
+import static training.web.controller.constant.Parameters.*;
+
 public class DoRegistration implements Command {
     private final UserService userService = ServiceProvider.getInstance().getUserService();
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String name = request.getParameter("name");
-        String surname = request.getParameter("surname");
-        String login = request.getParameter("login");
-        String email = request.getParameter("email");
-        String country = request.getParameter("country");
-        String phone = request.getParameter("phone");
-        String password = request.getParameter("password");
-        String passwordConfirmation = request.getParameter("password_confirmation");
-        String roleId = request.getParameter("role");
+        String name = request.getParameter(REQUEST_USER_NAME);
+        String surname = request.getParameter(REQUEST_USER_SURNAME);
+        String login = request.getParameter(REQUEST_USER_LOGIN);
+        String email = request.getParameter(REQUEST_USER_EMAIL);
+        String country = request.getParameter(REQUEST_USER_COUNTRY);
+        String phone = request.getParameter(REQUEST_USER_PHONE);
+        String password = request.getParameter(REQUEST_USER_PASSWORD);
+        String passwordConfirmation = request.getParameter(REQUEST_USER_PASSWORD_CONFIRMATION);
+        String roleId = request.getParameter(REQUEST_USER_ROLE);
         if(roleId == null){
             roleId = "3";
         }

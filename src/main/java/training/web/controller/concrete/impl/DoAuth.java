@@ -16,6 +16,9 @@ import training.web.service.exception.ValidationException;
 
 import java.io.IOException;
 
+import static training.web.controller.constant.Parameters.REQUEST_REMEMBER_ME;
+import static training.web.controller.constant.Parameters.SESSION_USER;
+
 public class DoAuth implements Command {
     private final UserService userService = ServiceProvider.getInstance().getUserService();
     @Override
@@ -28,11 +31,11 @@ public class DoAuth implements Command {
 
             if(user != null) {
                 HttpSession session = (HttpSession) request.getSession(true);
-                session.setAttribute("user", user);
+                session.setAttribute(SESSION_USER, user);
 
-                String rememberMe = request.getParameter("remember-me");
+                String rememberMe = request.getParameter(REQUEST_REMEMBER_ME);
                 if (rememberMe != null) {
-                    Cookie cookie = new Cookie("remember-me", user.getId()+"");
+                    Cookie cookie = new Cookie(REQUEST_REMEMBER_ME, user.getLogin());
                     response.addCookie(cookie);
                 }
                 response.sendRedirect("MyController?command=go_to_main_page");
