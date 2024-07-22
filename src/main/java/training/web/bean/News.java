@@ -10,17 +10,19 @@ public class News implements Serializable {
     private String brief;
     private String info;
     private String imgPath;
+    private int tagId;
 
     public News() {
     }
 
-    public News(int id, String title, String brief, String info, String imgPath) {
+    public News(int id, String title, String brief, String info, String imgPath, int tagId) {
         super();
         this.id = id;
         this.title = title;
         this.brief = brief;
         this.info = info;
         this.imgPath = imgPath;
+        this.tagId = tagId;
     }
 
     public int getId() {
@@ -63,16 +65,24 @@ public class News implements Serializable {
         this.imgPath = imgPath;
     }
 
+    public int getTagId() {
+        return tagId;
+    }
+
+    public void setTagId(int tagId) {
+        this.tagId = tagId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         News news = (News) o;
-        return id == news.id && Objects.equals(title, news.title) && Objects.equals(brief, news.brief) && Objects.equals(info, news.info) && Objects.equals(imgPath, news.imgPath);
+        return id == news.id && tagId == news.tagId && Objects.equals(title, news.title) && Objects.equals(brief, news.brief) && Objects.equals(info, news.info) && Objects.equals(imgPath, news.imgPath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(brief, imgPath, info, title);
+        return Objects.hash(id, title, brief, info, imgPath, tagId);
     }
 }
