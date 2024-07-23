@@ -20,15 +20,10 @@ public class DoAddNews implements Command {
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String title = request.getParameter(REQUEST_NEWS_TITLE);
-        System.out.println(title);
         String image = request.getParameter(REQUEST_NEWS_IMAGE);
-        System.out.println(image);
         String brief = request.getParameter(REQUEST_NEWS_BRIEF);
-        System.out.println(brief);
         String info = request.getParameter(REQUEST_NEWS_INFO);
-        System.out.println(info);
         int tag = Integer.parseInt(request.getParameter(REQUEST_NEWS_TAG));
-        System.out.println(tag);
 
         HttpSession session = (HttpSession) request.getSession(false);
 

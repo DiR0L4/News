@@ -34,7 +34,7 @@ public class GoToMainPage implements Command {
             RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/main.jsp");
             dispatcher.forward(request, response);
         } catch (ServiceException e){
-            // Сделать страницу 404
+            response.sendRedirect("MyController?command=go_to_error_page&error=Internal server error");
         }
 
     }

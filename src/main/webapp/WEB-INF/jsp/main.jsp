@@ -70,7 +70,7 @@
                             key="main.lastnews"/></h2>
                         <div class="row justify-content-center">
                             <c:forEach var="news" items="${requestScope.lastNews}">
-                                <div onclick="location.href=''" class="news-item col-md-5 mx-4 mb-5 border border-3 rounded">
+                                <div onclick="location.href='MyController?command=go_to_full_news_page&newsId=${news.id}'" class="news-item col-md-5 mx-4 mb-5 border border-3 rounded">
                                     <img src="${news.imgPath}"
                                          alt="News image" class="img-thumbnail mb-3">
                                     <h4 class="news-title mb-2">${news.title}</h4>

@@ -21,6 +21,7 @@ public class CommandProvider {
         commands.put(CommandName.DO_ADD_NEWS, new DoAddNews());
         commands.put(CommandName.DO_CHANGE_LOCALE, new DoChangeLocale());
         commands.put(CommandName.GO_TO_ERROR_PAGE, new GoToErrorPage());
+        commands.put(CommandName.GO_TO_FULL_NEWS_PAGE, new GoToFullNewsPage());
     }
 
     public Command takeCommand(String userCommand){

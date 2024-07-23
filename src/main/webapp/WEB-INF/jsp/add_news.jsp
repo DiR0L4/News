@@ -95,10 +95,10 @@
                             </div>
 
                             <div class="input-group mb-4">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="infoSpan"><fmt:message key="add.news.info"/></span>
+                                <div class="input-group-text">
+                                    <span class="input-group" id="infoSpan"><fmt:message key="add.news.info"/></span>
                                 </div>
-                                <input type="text" class="form-control" name="info" id="info" placeholder="Info" aria-describedby="infoSpan">
+                                <textarea type="text" class="form-control" name="info" id="info" placeholder="Info" aria-describedby="infoSpan"></textarea>
                             </div>
                             <select class="form-select mb-4" name="tag" id="tag" required>
                             <option selected disabled value=""><fmt:message key="add.news.choose.category"/></option>
