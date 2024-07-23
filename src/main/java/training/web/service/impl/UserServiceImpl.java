@@ -13,8 +13,8 @@ import training.web.service.exception.ValidationException;
 import training.web.service.util.Validator;
 
 public class UserServiceImpl implements UserService {
-    UserDAO userDAO = DAOProvider.getInstance().getUserDao();
-    Validator validator = new Validator();
+    private final UserDAO userDAO = DAOProvider.getInstance().getUserDao();
+    private final Validator validator = new Validator();
     @Override
     public boolean registration(RegistrationInfo regInfo) throws ServiceException, EmailAlreadyExistsException, ValidationException {
         try {
@@ -50,7 +50,7 @@ public class UserServiceImpl implements UserService {
         try {
             return userDAO.rememberMe(login);
         } catch (DAOException e) {
-            throw new ServiceException("An error occurred while trying to get tags", e);
+            throw new ServiceException("An error occurred while trying to get token", e);
         }
     }
 }

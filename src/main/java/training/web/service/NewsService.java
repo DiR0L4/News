@@ -10,4 +10,5 @@ public interface NewsService {
     List<News> getLastNews() throws ServiceException;
     List<Tag> getTags() throws ServiceException;
     boolean addNews(News news) throws ServiceException;
+    News getNewsById(int id) throws ServiceException;
 }

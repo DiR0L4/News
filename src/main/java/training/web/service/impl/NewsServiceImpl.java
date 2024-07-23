@@ -7,14 +7,11 @@ import training.web.dao.DAOProvider;
 import training.web.dao.NewsDAO;
 import training.web.service.NewsService;
 import training.web.service.ServiceException;
-import training.web.service.exception.ValidationException;
-import training.web.service.util.Validator;
 
 import java.util.List;
 
 public class NewsServiceImpl implements NewsService {
-    NewsDAO newsDAO = DAOProvider.getInstance().getNewsDAO();
-    Validator validator = new Validator();
+    private final NewsDAO newsDAO = DAOProvider.getInstance().getNewsDAO();
     @Override
     public List<News> getLastNews() throws ServiceException{
         try {
@@ -38,7 +35,16 @@ public class NewsServiceImpl implements NewsService {
         try {
             return newsDAO.addNews(news);
         } catch (DAOException e) {
-            throw new ServiceException("An error occurred while trying to get tags", e);
+            throw new ServiceException("An error occurred while trying to get news", e);
+        }
+    }
+
+    @Override
+    public News getNewsById(int id) throws ServiceException {
+        try {
+            return newsDAO.getNewsById(id);
+        } catch (DAOException e) {
+            throw new ServiceException("An error occurred while trying to get news", e);
         }
     }
 }

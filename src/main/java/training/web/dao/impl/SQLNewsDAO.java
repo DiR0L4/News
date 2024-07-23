@@ -118,4 +118,37 @@ public class SQLNewsDAO implements NewsDAO {
             connectionPool.closeConnection(resultSet, statement, connection);
         }
     }
+
+    private final static String SELECT_NEWS_BY_ID_SQL = "SELECT * FROM news WHERE id = ?";
+
+    @Override
+    public News getNewsById(int id) throws DAOException {
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        News news = null;
+        try {
+            connection = connectionPool.takeConnection();
+            statement = connection.prepareStatement(SELECT_NEWS_BY_ID_SQL);
+
+            statement.setInt(1, id);
+            resultSet = statement.executeQuery();
+
+            if(resultSet.next()){
+                news = new News();
+
+                news.setId(resultSet.getInt(NEWS_ID_COLUMN));
+                news.setTitle(resultSet.getString(NEWS_TITLE_COLUMN));
+                news.setBrief(resultSet.getString(NEWS_BRIEF_COLUMN));
+                news.setInfo(resultSet.getString(NEWS_INFO_COLUMN));
+                news.setImgPath(resultSet.getString(NEWS_IMAGE_COLUMN));
+            }
+
+            return news;
+        } catch (ConnectionPoolException | SQLException e){
+            throw new DAOException(e);
+        } finally {
+            connectionPool.closeConnection(resultSet, statement, connection);
+        }
+    }
 }
