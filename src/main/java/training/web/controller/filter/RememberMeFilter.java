@@ -3,7 +3,7 @@ package training.web.controller.filter;
 import jakarta.servlet.*;
 import jakarta.servlet.http.*;
 import training.web.bean.User;
-import training.web.service.ServiceException;
+import training.web.service.exception.ServiceException;
 import training.web.service.ServiceProvider;
 import training.web.service.UserService;
 

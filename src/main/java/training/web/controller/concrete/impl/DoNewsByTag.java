@@ -6,10 +6,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import training.web.bean.News;
-import training.web.bean.Tag;
 import training.web.controller.concrete.Command;
 import training.web.service.NewsService;
-import training.web.service.ServiceException;
+import training.web.service.exception.ServiceException;
 import training.web.service.ServiceProvider;
 
 import java.io.IOException;

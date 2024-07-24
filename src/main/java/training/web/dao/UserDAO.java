@@ -3,6 +3,7 @@ package training.web.dao;
 import training.web.bean.AuthInfo;
 import training.web.bean.RegistrationInfo;
 import training.web.bean.User;
+import training.web.dao.exception.DAOException;
 import training.web.dao.exception.EmailAlreadyExistsDAOException;
 
 public interface UserDAO {

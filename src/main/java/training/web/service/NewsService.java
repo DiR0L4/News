@@ -2,8 +2,7 @@ package training.web.service;
 
 import training.web.bean.News;
 import training.web.bean.Tag;
-import training.web.dao.DAOException;
-import training.web.service.exception.ValidationException;
+import training.web.service.exception.ServiceException;
 
 import java.util.List;
 

@@ -2,11 +2,11 @@ package training.web.service.impl;
 
 import training.web.bean.News;
 import training.web.bean.Tag;
-import training.web.dao.DAOException;
+import training.web.dao.exception.DAOException;
 import training.web.dao.DAOProvider;
 import training.web.dao.NewsDAO;
 import training.web.service.NewsService;
-import training.web.service.ServiceException;
+import training.web.service.exception.ServiceException;
 
 import java.util.List;
 

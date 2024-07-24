@@ -3,7 +3,7 @@ package training.web.dao.impl;
 import training.web.bean.AuthInfo;
 import training.web.bean.RegistrationInfo;
 import training.web.bean.User;
-import training.web.dao.DAOException;
+import training.web.dao.exception.DAOException;
 import training.web.dao.UserDAO;
 import training.web.dao.connectionpool.ConnectionPool;
 import training.web.dao.exception.ConnectionPoolException;

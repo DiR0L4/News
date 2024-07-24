@@ -2,6 +2,7 @@ package training.web.dao;
 
 import training.web.bean.News;
 import training.web.bean.Tag;
+import training.web.dao.exception.DAOException;
 
 import java.util.List;
 

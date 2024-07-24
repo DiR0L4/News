@@ -9,7 +9,7 @@ import training.web.controller.concrete.Command;
 
 import training.web.bean.User;
 import training.web.bean.AuthInfo;
-import training.web.service.ServiceException;
+import training.web.service.exception.ServiceException;
 import training.web.service.ServiceProvider;
 import training.web.service.UserService;
 import training.web.service.exception.ValidationException;

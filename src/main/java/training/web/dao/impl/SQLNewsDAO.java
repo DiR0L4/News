@@ -2,7 +2,7 @@ package training.web.dao.impl;
 
 import training.web.bean.News;
 import training.web.bean.Tag;
-import training.web.dao.DAOException;
+import training.web.dao.exception.DAOException;
 import training.web.dao.NewsDAO;
 import training.web.dao.connectionpool.ConnectionPool;
 import training.web.dao.exception.ConnectionPoolException;
