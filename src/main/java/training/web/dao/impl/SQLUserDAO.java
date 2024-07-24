@@ -7,7 +7,7 @@ import training.web.dao.DAOException;
 import training.web.dao.UserDAO;
 import training.web.dao.connectionpool.ConnectionPool;
 import training.web.dao.exception.ConnectionPoolException;
-import training.web.dao.exception.EmailAlreadyExistsException;
+import training.web.dao.exception.EmailAlreadyExistsDAOException;
 
 import java.sql.*;
 
@@ -23,7 +23,7 @@ public class SQLUserDAO implements UserDAO {
     private final static String INSERT_USER_SQL = "INSERT INTO users (login, password, email) VALUES (?, ?, ?)";
 
     @Override
-    public boolean addUser(RegistrationInfo regInfo) throws DAOException, EmailAlreadyExistsException {
+    public boolean addUser(RegistrationInfo regInfo) throws DAOException, EmailAlreadyExistsDAOException {
         Connection connection = null;
         PreparedStatement statementUsers = null;
         ResultSet keys = null;
@@ -58,7 +58,7 @@ public class SQLUserDAO implements UserDAO {
     }
 
     private final static String SELECT_USER_ID_SQL = "SELECT id FROM users WHERE email = ?";
-    private boolean emailUniquenessCheck(String email) throws EmailAlreadyExistsException, SQLException, ConnectionPoolException{
+    private boolean emailUniquenessCheck(String email) throws EmailAlreadyExistsDAOException, SQLException, ConnectionPoolException{
         Connection connection = connectionPool.takeConnection();
         PreparedStatement statementUserId = connection.prepareStatement(SELECT_USER_ID_SQL);
         statementUserId.setString(1, email);
@@ -66,7 +66,7 @@ public class SQLUserDAO implements UserDAO {
         ResultSet resultSet = statementUserId.executeQuery();
         if(resultSet.next()){
             connectionPool.closeConnection(resultSet, statementUserId, connection);
-            throw new EmailAlreadyExistsException("Email " + email + "already exists");
+            throw new EmailAlreadyExistsDAOException("Email " + email + "already exists");
         }
         connectionPool.closeConnection(resultSet, statementUserId, connection);
         return true;

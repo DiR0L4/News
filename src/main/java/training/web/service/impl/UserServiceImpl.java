@@ -6,9 +6,10 @@ import training.web.bean.User;
 import training.web.dao.DAOException;
 import training.web.dao.DAOProvider;
 import training.web.dao.UserDAO;
-import training.web.dao.exception.EmailAlreadyExistsException;
+import training.web.dao.exception.EmailAlreadyExistsDAOException;
 import training.web.service.ServiceException;
 import training.web.service.UserService;
+import training.web.service.exception.EmailAlreadyExistsServiceException;
 import training.web.service.exception.ValidationException;
 import training.web.service.util.Validator;
 
@@ -16,7 +17,7 @@ public class UserServiceImpl implements UserService {
     private final UserDAO userDAO = DAOProvider.getInstance().getUserDao();
     private final Validator validator = new Validator();
     @Override
-    public boolean registration(RegistrationInfo regInfo) throws ServiceException, EmailAlreadyExistsException, ValidationException {
+    public boolean registration(RegistrationInfo regInfo) throws ServiceException, EmailAlreadyExistsServiceException, ValidationException {
         try {
             if(validator.validateRegistration(regInfo))
             {
@@ -25,7 +26,10 @@ public class UserServiceImpl implements UserService {
             else {
                 throw new ValidationException("The fields are filled incorrectly");
             }
-        } catch (DAOException e) {
+        } catch (EmailAlreadyExistsDAOException e){
+            throw new EmailAlreadyExistsServiceException(e);
+        }
+        catch (DAOException e) {
             throw new ServiceException("Error occurred during registration", e);
         }
     }
