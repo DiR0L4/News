@@ -33,28 +33,28 @@
         <a href="MyController?command=do_change_locale&lang=ru" class="row"><fmt:message
                 key="header.locale_ru"/></a>
     </div>
-        <ul class="nav nav-pills col-md-3">
-            <li class="nav-item"><a href="MyController?command=go_to_main_page" class="nav-link"><fmt:message
-                    key="header.link.main"/></a></li>
-            <li class="nav-item"><a href="#" class="nav-link"><fmt:message
-                    key="header.link.news"/></a></li>
-            <li class="nav-item"><a href="#" class="nav-link"><fmt:message
-                    key="header.link.profile"/></a></li>
-            <c:if test="${sessionScope.user.getRoleId() eq 1 || sessionScope.user.getRoleId() eq 2}">
-                <li class="nav-item"><a href="MyController?command=go_to_add_news_page" class="nav-link"><fmt:message
-                        key="header.link.addnews"/></a></li>
-            </c:if>
-            <li class="nav-item"><a href="MyController?command=do_logout" class="nav-link"><fmt:message
-                    key="header.link.exit"/></a></li>
-        </ul>
-        <div class="col-md-3 text-end">
-            <c:if test="${sessionScope.user eq null}">
-                <a href="MyController?command=go_to_auth" class="nav-link"><fmt:message
-                        key="header.link.auth"/></a>
-                <a href="MyController?command=go_to_registration_page" class="nav-link"><fmt:message
-                        key="header.link.reg"/></a>
-            </c:if>
-        </div>
+    <ul class="nav nav-pills col-md-4 justify-content-center">
+        <li class="nav-item"><a href="MyController?command=go_to_main_page" class="nav-link"><fmt:message
+                key="header.link.main"/></a></li>
+        <li class="nav-item"><a href="MyController?command=go_to_news_by_tags_page" class="nav-link"><fmt:message
+                key="header.link.news"/></a></li>
+        <li class="nav-item"><a href="#" class="nav-link"><fmt:message
+                key="header.link.profile"/></a></li>
+        <c:if test="${sessionScope.user.getRoleId() eq 1 || sessionScope.user.getRoleId() eq 2}">
+            <li class="nav-item"><a href="MyController?command=go_to_add_news_page" class="nav-link"><fmt:message
+                    key="header.link.addnews"/></a></li>
+        </c:if>
+        <li class="nav-item"><a href="MyController?command=do_logout" class="nav-link"><fmt:message
+                key="header.link.exit"/></a></li>
+    </ul>
+    <div class="col-md-3 text-end">
+        <c:if test="${sessionScope.user eq null}">
+            <a href="MyController?command=go_to_auth" class="nav-link"><fmt:message
+                    key="header.link.auth"/></a>
+            <a href="MyController?command=go_to_registration_page" class="nav-link"><fmt:message
+                    key="header.link.reg"/></a>
+        </c:if>
+    </div>
 </header>
 <section class="vh-200" style="background-color: #508bfc;">
     <div class="container py-5 h-200">

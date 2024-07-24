@@ -15,7 +15,7 @@ import java.io.IOException;
 
 import static training.web.controller.constant.Parameters.*;
 public class DoAddNews implements Command {
-    NewsService newsService = ServiceProvider.getInstance().getNewsService();
+    private final NewsService newsService = ServiceProvider.getInstance().getNewsService();
     @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -35,7 +35,7 @@ public class DoAddNews implements Command {
                     newsService.addNews(new News(0, title, brief, info, image, tag));
                     response.sendRedirect("MyController?command=go_to_add_news_page&newsMessage=News added!");
                 } catch (ServiceException e) {
-                    response.sendRedirect("MyController?command=go_to_error_page&error=Error occurred during trying to add news");
+                    response.sendRedirect("MyController?command=go_to_add_news_page&newsError=Error occurred during trying to add news");
                 }
             }
             else {

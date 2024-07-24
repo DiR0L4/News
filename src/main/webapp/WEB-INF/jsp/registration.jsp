@@ -34,10 +34,10 @@
 		<a href="MyController?command=do_change_locale&lang=ru" class="row"><fmt:message
 				key="header.locale_ru"/></a>
 	</div>
-	<ul class="nav nav-pills col-md-3">
+	<ul class="nav nav-pills col-md-4 justify-content-center">
 		<li class="nav-item"><a href="MyController?command=go_to_main_page" class="nav-link"><fmt:message
 				key="header.link.main"/></a></li>
-		<li class="nav-item"><a href="#" class="nav-link"><fmt:message
+		<li class="nav-item"><a href="MyController?command=go_to_news_by_tags_page" class="nav-link"><fmt:message
 				key="header.link.news"/></a></li>
 		<li class="nav-item"><a href="#" class="nav-link"><fmt:message
 				key="header.link.profile"/></a></li>

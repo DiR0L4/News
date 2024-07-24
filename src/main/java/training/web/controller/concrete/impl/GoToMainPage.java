@@ -36,6 +36,5 @@ public class GoToMainPage implements Command {
         } catch (ServiceException e){
             response.sendRedirect("MyController?command=go_to_error_page&error=Internal server error");
         }
-
     }
 }

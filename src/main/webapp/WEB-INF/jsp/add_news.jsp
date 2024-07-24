@@ -34,10 +34,10 @@
         <a href="MyController?command=do_change_locale&lang=ru" class="row"><fmt:message
                 key="header.locale_ru"/></a>
     </div>
-    <ul class="nav nav-pills col-md-3">
+    <ul class="nav nav-pills col-md-4 justify-content-center">
         <li class="nav-item"><a href="MyController?command=go_to_main_page" class="nav-link"><fmt:message
                 key="header.link.main"/></a></li>
-        <li class="nav-item"><a href="#" class="nav-link"><fmt:message
+        <li class="nav-item"><a href="MyController?command=go_to_news_by_tags_page" class="nav-link"><fmt:message
                 key="header.link.news"/></a></li>
         <li class="nav-item"><a href="#" class="nav-link"><fmt:message
                 key="header.link.profile"/></a></li>
@@ -64,9 +64,20 @@
                 <div class="card shadow-2-strong" style="border-radius: 1rem;">
                     <div class="card-body p-5 text-center">
 
-                        <h3 class="mb-5"><fmt:message key="add.news.create"/></h3>
+                        <c:if test="${param.action eq null}">
+                            <h3 class="mb-5"><fmt:message key="add.news.create"/></h3>
+                        </c:if>
+                        <c:if test="${not (param.action eq null)}">
+                            <h3 class="mb-5"><fmt:message key="add.news.update"/></h3>
+                        </c:if>
                         <form action="MyController" method="post">
-                            <input type="hidden" name="command" value="do_add_news"/>
+                            <c:if test="${param.action eq null}">
+                                <input type="hidden" name="command" value="do_add_news"/>
+                            </c:if>
+                            <c:if test="${not (param.action eq null)}">
+                                <input type="hidden" name="command" value="do_update_news"/>
+                                <input type="hidden" name="newsId" value="${param.newsId}"/>
+                            </c:if>
                             <c:if test="${not (param.newsError eq null)}">
                                 <span class="text-danger"><c:out value="${param.newsError}"/></span>
                             </c:if>
@@ -77,37 +88,44 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="titleSpan"><fmt:message key="add.news.title"/></span>
                                 </div>
-                                <input type="text" class="form-control" name="title" id="title" placeholder="Title" aria-describedby="titleSpan">
+                                <input type="text" class="form-control" value="${param.title}" name="title" id="title" placeholder="Title" aria-describedby="titleSpan">
                             </div>
 
                             <div class="input-group mb-4">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="imageSpan"><fmt:message key="add.news.image"/></span>
                                 </div>
-                                <input type="text" class="form-control" name="image" id="image" placeholder="Link" aria-describedby="imageSpan">
+                                <input type="text" class="form-control" value="${param.image}" name="image" id="image" placeholder="Link" aria-describedby="imageSpan">
                             </div>
 
                             <div class="input-group mb-4">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="briefSpan"><fmt:message key="add.news.brief"/></span>
                                 </div>
-                                <input type="text" class="form-control" name="brief" id="brief" placeholder="Brief" aria-describedby="briefSpan">
+                                <input type="text" class="form-control" value="${param.brief}" name="brief" id="brief" placeholder="Brief" aria-describedby="briefSpan">
                             </div>
 
                             <div class="input-group mb-4">
                                 <div class="input-group-text">
                                     <span class="input-group" id="infoSpan"><fmt:message key="add.news.info"/></span>
                                 </div>
-                                <textarea type="text" class="form-control" name="info" id="info" placeholder="Info" aria-describedby="infoSpan"></textarea>
+                                <textarea type="text" class="form-control" name="info" id="info" placeholder="Info" aria-describedby="infoSpan">${param.info}</textarea>
                             </div>
                             <select class="form-select mb-4" name="tag" id="tag" required>
-                            <option selected disabled value=""><fmt:message key="add.news.choose.category"/></option>
+                            <option selected disabled value="${param.tagId}"><fmt:message key="add.news.choose.category"/></option>
                             <c:forEach var="tags" items="${sessionScope.tags}">
                                 <option value="${tags.id}">${tags.title}</option>
                             </c:forEach>
                         </select>
 
-                            <button data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg btn-block mb-2" type="submit"><fmt:message key="add.news.docreate"/></button>
+                            <button data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg btn-block mb-2" type="submit">
+                                <c:if test="${param.action eq null}">
+                                    <fmt:message key="add.news.docreate"/>
+                                </c:if>
+                                <c:if test="${not (param.action eq null)}">
+                                    <fmt:message key="add.news.doupdate"/>
+                                </c:if>
+                            </button>
                         </form>
                     </div>
                 </div>
