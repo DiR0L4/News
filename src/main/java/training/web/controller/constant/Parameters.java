@@ -2,6 +2,7 @@ package training.web.controller.constant;
 
 public class Parameters {
     public final static String REQUEST_LAST_NEWS = "lastNews";
+    public final static String REQUEST_TAG_NEWS = "tagNews";
     public final static String REQUEST_NEWS = "news";
     public final static String REQUEST_NEWS_ID = "newsId";
     public final static String REQUEST_NEWS_TITLE = "title";
@@ -10,6 +11,7 @@ public class Parameters {
     public final static String REQUEST_NEWS_INFO = "info";
     public final static String REQUEST_NEWS_TAG = "tag";
     public final static String REQUEST_LANG = "lang";
+    public final static String REQUEST_ACTION = "action";
     public final static String REQUEST_REMEMBER_ME = "remember-me";
     public final static String REQUEST_ERROR = "error";
 
