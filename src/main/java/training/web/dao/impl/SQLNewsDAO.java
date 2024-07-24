@@ -151,4 +151,95 @@ public class SQLNewsDAO implements NewsDAO {
             connectionPool.closeConnection(resultSet, statement, connection);
         }
     }
+
+    private final static String UPDATE_NEWS_SQL = "UPDATE news SET title = ?, brief = ?, info = ?, image = ?, tag_id = ? WHERE id = ?";
+
+    @Override
+    public boolean updateNews(News news) throws DAOException {
+        Connection connection = null;
+        PreparedStatement statement = null;
+        try {
+            connection = connectionPool.takeConnection();
+            statement = connection.prepareStatement(UPDATE_NEWS_SQL);
+
+            statement.setString(1, news.getTitle());
+            statement.setString(2, news.getBrief());
+            statement.setString(3, news.getInfo());
+            statement.setString(4, news.getImgPath());
+            statement.setInt(5, news.getTagId());
+            statement.setInt(6, news.getId());
+
+            if (statement.executeUpdate() == 0) {
+                throw new SQLException("Creating news failed, no rows affected.");
+            }
+
+            return true;
+
+        } catch (ConnectionPoolException | SQLException e){
+            throw new DAOException(e);
+        } finally {
+            connectionPool.closeConnection(statement, connection);
+        }
+    }
+
+    private final static String DELETE_NEWS_SQL = "DELETE FROM news WHERE id = ?";
+
+    @Override
+    public boolean deleteNews(int id) throws DAOException {
+        Connection connection = null;
+        PreparedStatement statement = null;
+        try {
+            connection = connectionPool.takeConnection();
+            statement = connection.prepareStatement(DELETE_NEWS_SQL);
+
+            statement.setInt(1, id);
+
+            if (statement.executeUpdate() == 0) {
+                throw new SQLException("Deleting news failed, no rows affected.");
+            }
+
+            return true;
+
+        } catch (ConnectionPoolException | SQLException e){
+            throw new DAOException(e);
+        } finally {
+            connectionPool.closeConnection(statement, connection);
+        }
+    }
+
+    private final static String SELECT_NEWS_BY_TAG_ID_SQL = "SELECT * FROM news WHERE tag_id = ?";
+
+    @Override
+    public List<News> getNewsByTagId(int tagId) throws DAOException {
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        List<News> list = new ArrayList<>();
+        try {
+            connection = connectionPool.takeConnection();
+            statement = connection.prepareStatement(SELECT_NEWS_BY_TAG_ID_SQL);
+            statement.setInt(1, tagId);
+
+            resultSet = statement.executeQuery();
+
+            while (resultSet.next())
+            {
+                News news = new News();
+
+                news.setId(resultSet.getInt(NEWS_ID_COLUMN));
+                news.setTitle(resultSet.getString(NEWS_TITLE_COLUMN));
+                news.setBrief(resultSet.getString(NEWS_BRIEF_COLUMN));
+                news.setInfo(resultSet.getString(NEWS_INFO_COLUMN));
+                news.setImgPath(resultSet.getString(NEWS_IMAGE_COLUMN));
+
+                list.add(news);
+            }
+
+            return list;
+        } catch (ConnectionPoolException | SQLException e){
+            throw new DAOException(e);
+        } finally {
+            connectionPool.closeConnection(resultSet, statement, connection);
+        }
+    }
 }
