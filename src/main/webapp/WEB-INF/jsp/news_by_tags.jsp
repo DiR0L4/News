@@ -57,37 +57,39 @@
     </div>
 </header>
 <section class="vh-200" style="background-color: #508bfc;">
-    <div class="container py-5 h-100">
-        <div class="row d-flex justify-content-center align-items-center w-70 h-100">
+    <div class="container py-5 h-200">
+        <div class="row d-flex justify-content-center align-items-center h-100">
             <div class="col-12 col-md-12">
                 <div class="card shadow-2-strong" style="border-radius: 1rem;">
-                    <div class="card-body p-5 text-center justify-content-center">
-                        <h2 class="mb-5">${requestScope.news.title}</h2>
-                        <img src="${requestScope.news.imgPath}" alt="News image" class="img-thumbnail mb-5">
-                        <p class="news-brief fs-4 text-start mb-4">${requestScope.news.info}</p>
-                        <c:if test="${sessionScope.user.roleId eq 1}">
-                            <div class="row col-12 justify-content-center">
-                                <form action="MyController" class="col-md-3" method="post">
-                                    <input type="hidden" name="command" value="go_to_update_news_page"/>
-                                    <input type="hidden" name="action" value="update"/>
-                                    <input type="hidden" name="newsId" value="${requestScope.news.id}"/>
-                                    <input type="hidden" name="title" value="${requestScope.news.title}"/>
-                                    <input type="hidden" name="image" value="${requestScope.news.imgPath}"/>
-                                    <input type="hidden" name="brief" value="${requestScope.news.brief}"/>
-                                    <input type="hidden" name="info" value="${requestScope.news.info}"/>
-                                    <input type="hidden" name="tag" value="${requestScope.news.tagId}"/>
-                                    <button data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg btn-block mb-2">
-                                        <fmt:message key="news.full.update"/></button>
-                                </form>
-                                <form action="MyController" class="col-md-3" method="post">
-                                    <input type="hidden" name="command" value="do_delete_news"/>
-                                    <input type="hidden" name="action" value="delete"/>
-                                    <input type="hidden" name="newsId" value="${requestScope.news.id}"/>
-                                    <button data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg btn-block mb-2">
-                                        <fmt:message key="news.full.delete"/></button>
-                                </form>
+                    <div class="card-body p-5 text-center">
+                        <h2 class="mb-5"><fmt:message key="news.by.tag.message"/></h2>
+                        <form action="MyController" class="row mb-3 justify-content-center" method="post">
+                            <input type="hidden" name="command" value="do_news_by_tag"/>
+                           <div class="mb-4 col-md-4 justify-content-center">
+                               <select class="form-select" name="tag" id="tag" required>
+                                   <option selected value="1"><fmt:message key="add.news.choose.category"/></option>
+                                   <c:forEach var="tags" items="${sessionScope.tags}">
+                                       <option value="${tags.id}">${tags.title}</option>
+                                   </c:forEach>
+                               </select>
+                           </div>
+                            <div class="mb-4 col-md-4">
+                                <button data-mdb-button-init data-mdb-ripple-init class="btn btn-primary btn-lg btn-block" type="submit"><fmt:message
+                                        key="news.by.tag.search"/></button>
                             </div>
-                        </c:if>
+                        </form>
+                        <div class="row justify-content-center">
+                            <c:forEach var="news" items="${requestScope.tagNews}">
+                                <div onclick="location.href='MyController?command=go_to_full_news_page&newsId=${news.id}'" class="news-item col-md-5 mx-4 mb-5 border border-3 rounded">
+                                    <img src="${news.imgPath}"
+                                         alt="News image" class="img-thumbnail mb-3">
+                                    <h4 class="news-title mb-2">${news.title}</h4>
+                                    <p class="news-brief fs-8 text-muted text-start">${news.brief}</p>
+                                </div>
+                            </c:forEach>
+                            <c:if test="${requestScope.tagNews.isEmpty() eq true}">
+                                <h3><fmt:message key="news.by.tag.null"/></h3>
+                            </c:if>
                         </div>
                     </div>
                 </div>

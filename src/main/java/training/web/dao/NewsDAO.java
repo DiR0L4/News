@@ -10,4 +10,7 @@ public interface NewsDAO {
     boolean addNews(News news) throws DAOException;
     List<Tag> getTags() throws DAOException;
     News getNewsById(int id) throws DAOException;
+    boolean updateNews(News news) throws DAOException;
+    boolean deleteNews(int id) throws DAOException;
+    List<News> getNewsByTagId(int tagId) throws DAOException;
 }

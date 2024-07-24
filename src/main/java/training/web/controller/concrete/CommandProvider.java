@@ -22,6 +22,11 @@ public class CommandProvider {
         commands.put(CommandName.DO_CHANGE_LOCALE, new DoChangeLocale());
         commands.put(CommandName.GO_TO_ERROR_PAGE, new GoToErrorPage());
         commands.put(CommandName.GO_TO_FULL_NEWS_PAGE, new GoToFullNewsPage());
+        commands.put(CommandName.GO_TO_UPDATE_NEWS_PAGE, new GoToUpdateNewsPage());
+        commands.put(CommandName.DO_UPDATE_NEWS, new DoUpdateNews());
+        commands.put(CommandName.DO_DELETE_NEWS, new DoDeleteNews());
+        commands.put(CommandName.GO_TO_NEWS_BY_TAGS_PAGE, new GoToNewsByTagsPage());
+        commands.put(CommandName.DO_NEWS_BY_TAG, new DoNewsByTag());
     }
 
     public Command takeCommand(String userCommand){

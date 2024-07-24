@@ -47,4 +47,31 @@ public class NewsServiceImpl implements NewsService {
             throw new ServiceException("An error occurred while trying to get news", e);
         }
     }
+
+    @Override
+    public boolean updateNews(News news) throws ServiceException {
+        try {
+            return newsDAO.updateNews(news);
+        } catch (DAOException e) {
+            throw new ServiceException("An error occurred while trying to update news", e);
+        }
+    }
+
+    @Override
+    public boolean deleteNews(int id) throws ServiceException {
+        try {
+            return newsDAO.deleteNews(id);
+        } catch (DAOException e) {
+            throw new ServiceException("An error occurred while trying to delete news", e);
+        }
+    }
+
+    @Override
+    public List<News> getNewsByTagId(int tagId) throws ServiceException {
+        try {
+            return newsDAO.getNewsByTagId(tagId);
+        } catch (DAOException e) {
+            throw new ServiceException("An error occurred while trying to get news by tag", e);
+        }
+    }
 }
