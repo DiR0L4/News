@@ -27,6 +27,7 @@ public class CommandProvider {
         commands.put(CommandName.DO_DELETE_NEWS, new DoDeleteNews());
         commands.put(CommandName.GO_TO_NEWS_BY_TAGS_PAGE, new GoToNewsByTagsPage());
         commands.put(CommandName.DO_NEWS_BY_TAG, new DoNewsByTag());
+        commands.put(CommandName.GO_TO_PROFILE_PAGE, new GoToProfilePage());
     }
 
     public Command takeCommand(String userCommand){

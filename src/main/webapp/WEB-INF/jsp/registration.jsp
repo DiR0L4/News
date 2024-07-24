@@ -39,7 +39,7 @@
 				key="header.link.main"/></a></li>
 		<li class="nav-item"><a href="MyController?command=go_to_news_by_tags_page" class="nav-link"><fmt:message
 				key="header.link.news"/></a></li>
-		<li class="nav-item"><a href="#" class="nav-link"><fmt:message
+		<li class="nav-item"><a href="MyController?command=go_to_profile_page" class="nav-link"><fmt:message
 				key="header.link.profile"/></a></li>
 		<c:if test="${sessionScope.user.getRoleId() eq 1 || sessionScope.user.getRoleId() eq 2}">
 			<li class="nav-item"><a href="MyController?command=go_to_add_news_page" class="nav-link"><fmt:message
@@ -98,10 +98,10 @@
 									<label class="form-label"><fmt:message key="reg.country"/></label> <select
 										class="form-select" name="country" id="country" required>
 										<option selected disabled value=""><fmt:message key="reg.choose.country"/></option>
-										<option value="Russia"><fmt:message key="reg.choose.country.rus"/></option>
-										<option value="Belarus"><fmt:message key="reg.choose.country.bel"/></option>
-										<option value="Ukraine"><fmt:message key="reg.choose.country.ukr"/></option>
-										<option value="Kazakhstan"><fmt:message key="reg.choose.country.kz"/></option>
+										<option value="Россия"><fmt:message key="reg.choose.country.rus"/></option>
+										<option value="Беларусь"><fmt:message key="reg.choose.country.bel"/></option>
+										<option value="Украина"><fmt:message key="reg.choose.country.ukr"/></option>
+										<option value="Казахстан"><fmt:message key="reg.choose.country.kz"/></option>
 									</select>
 								</div>
 								<div class="col-md-12">

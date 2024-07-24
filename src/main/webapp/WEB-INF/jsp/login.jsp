@@ -39,7 +39,7 @@
             key="header.link.main"/></a></li>
     <li class="nav-item"><a href="MyController?command=go_to_news_by_tags_page" class="nav-link"><fmt:message
             key="header.link.news"/></a></li>
-    <li class="nav-item"><a href="#" class="nav-link"><fmt:message
+    <li class="nav-item"><a href="MyController?command=go_to_profile_page" class="nav-link"><fmt:message
             key="header.link.profile"/></a></li>
     <c:if test="${sessionScope.user.getRoleId() eq 1 || sessionScope.user.getRoleId() eq 2}">
       <li class="nav-item"><a href="MyController?command=go_to_add_news_page" class="nav-link"><fmt:message

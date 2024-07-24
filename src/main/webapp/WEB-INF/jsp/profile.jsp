@@ -34,12 +34,12 @@
         <a href="MyController?command=do_change_locale&lang=ru" class="row"><fmt:message
                 key="header.locale_ru"/></a>
     </div>
-    <ul class="nav nav-pills col-md-3">
+    <ul class="nav nav-pills col-md-4 justify-content-center">
         <li class="nav-item"><a href="MyController?command=go_to_main_page" class="nav-link"><fmt:message
                 key="header.link.main"/></a></li>
-        <li class="nav-item"><a href="#" class="nav-link"><fmt:message
+        <li class="nav-item"><a href="MyController?command=go_to_news_by_tags_page" class="nav-link"><fmt:message
                 key="header.link.news"/></a></li>
-        <li class="nav-item"><a href="#" class="nav-link"><fmt:message
+        <li class="nav-item"><a href="MyController?command=go_to_profile_page" class="nav-link"><fmt:message
                 key="header.link.profile"/></a></li>
         <c:if test="${sessionScope.user.getRoleId() eq 1 || sessionScope.user.getRoleId() eq 2}">
             <li class="nav-item"><a href="MyController?command=go_to_add_news_page" class="nav-link"><fmt:message
@@ -66,8 +66,8 @@
                     <div class="card-body p-5 text-center">
 
                         <h3 class="mb-3"><fmt:message key="profile.profile"/></h3>
-                        <c:if test="${not (param.profileError eq null)}">
-                            <span class="text-danger"><c:out value="${param.profileError}"/></span>
+                        <c:if test="${not (requestScope.profileError eq null)}">
+                            <span class="text-danger"><c:out value="${requestScope.profileError}"/></span>
                         </c:if>
                         <form class="row g-3 needs-validation" action="MyController"
                               method="post" novalidate>
@@ -75,47 +75,30 @@
                             <input type="hidden" name="command" value="do_registration"/>
 
                             <div class="col-md-6">
-                                <label for="surname" class="form-label"><fmt:message key="reg.surname"/></label>
-                                <input type="text" class="form-control" id="surname" name="surname" required>
+                                <h3>${requestScope.userProfile.surname}</h3>
                             </div>
                             <div class="col-md-6">
-                                <label for="name" class="form-label"><fmt:message key="reg.name"/></label>
-                                <input type="text" class="form-control" id="name" name="name" required>
+                                <h3>${requestScope.userProfile.name}</h3>
                             </div>
-                            <div class="col-md-6">
-                                <label for="login" class="form-label"><fmt:message key="reg.login"/></label>
-                                <div class="input-group has-validation">
-                                    <span class="input-group-text" id="inputGroupPrepend">@</span>
-                                    <input type="text" class="form-control" id="login" name="login"
-                                           aria-describedby="inputGroupPrepend" required>
-                                </div>
+                            <div class="col-md-3 fs-5">
+
                             </div>
-                            <div class="col-md-6">
-                                <label class="form-label"><fmt:message key="reg.country"/></label> <select
-                                    class="form-select" name="country" id="country" required>
-                                <option selected disabled value=""><fmt:message key="reg.choose.country"/></option>
-                                <option value="Russia"><fmt:message key="reg.choose.country.rus"/></option>
-                                <option value="Belarus"><fmt:message key="reg.choose.country.bel"/></option>
-                                <option value="Ukraine"><fmt:message key="reg.choose.country.ukr"/></option>
-                                <option value="Kazakhstan"><fmt:message key="reg.choose.country.kz"/></option>
-                            </select>
+                            <div class="col-md-6 fs-5">
+                                <h5>${requestScope.userProfile.login}</h5>
                             </div>
-                            <div class="col-md-12">
-                                <label class="form-label"><fmt:message key="reg.phone"/></label> <input
-                                    type="text" class="form-control" name="phone" id="phone" required>
+                            <div class="col-md-3 fs-5">
+
                             </div>
-                            <div class="col-md-6">
-                                <label class="form-label"><fmt:message key="reg.password"/></label> <input type="password"
-                                                                                                           class="form-control" name="password" id="password" required>
+                            <div class="col-md-12 fs-5">
+                                <h5><fmt:message key="profile.email"/>:  ${requestScope.userProfile.email}</h5>
                             </div>
-                            <div class="col-md-6">
-                                <label class="form-label"><fmt:message key="reg.confirmpassword"/></label> <input
-                                    type="password" class="form-control"
-                                    name="password_confirmation" id="password_confirmation" required>
+
+                            <div class="col-md-12 fs-5">
+                                <h5><fmt:message key="profile.role"/>:   ${requestScope.userProfile.role}</h5>
                             </div>
-                            <div class="col-12">
-                                <button data-mdb-button-init data-mdb-ripple-init
-                                        class="btn btn-primary btn-lg btn-block" type="submit"><fmt:message key="profile.doupdate"/></button>
+
+                            <div class="col-md-12 fs-5">
+                                <h5><fmt:message key="profile.country"/>:   ${requestScope.userProfile.country}</h5>
                             </div>
                         </form>
                     </div>

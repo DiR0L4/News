@@ -3,6 +3,7 @@ package training.web.dao.impl;
 import training.web.bean.AuthInfo;
 import training.web.bean.RegistrationInfo;
 import training.web.bean.User;
+import training.web.bean.UserProfile;
 import training.web.dao.exception.DAOException;
 import training.web.dao.UserDAO;
 import training.web.dao.connectionpool.ConnectionPool;
@@ -19,6 +20,10 @@ public class SQLUserDAO implements UserDAO {
     private final static String USERS_LOGIN_COLUMN = "login";
     private final static String USERS_EMAIL_COLUMN = "email";
     private final static String ROLES_USERS_ROLES_ID_COLUMN = "roles_id";
+    private final static String USERSINFO_SURNAME_COLUMN = "surname";
+    private final static String USERSINFO_NAME_COLUMN = "surname";
+    private final static String ROLES_TITLE_COLUMN = "title";
+    private final static String USERSINFO_COUNTRY_COLUMN = "country";
 
     private final static String INSERT_USER_SQL = "INSERT INTO users (login, password, email) VALUES (?, ?, ?)";
 
@@ -182,6 +187,44 @@ public class SQLUserDAO implements UserDAO {
 
             return null;
         } catch (ConnectionPoolException | SQLException e){
+            throw new DAOException(e);
+        } finally {
+            connectionPool.closeConnection(resultSet, statement, connection);
+        }
+    }
+
+    private final static String SELECT_PROFILE_SQL = "SELECT login, email, roles_id, name, surname, country, roles.title FROM users\n" +
+            "JOIN roles_users ON roles_users.users_id = users.id\n" +
+            "JOIN roles ON roles.id = roles_users.users_id\n" +
+            "JOIN userinfo ON userinfo.users_id = users.id\n" +
+            "WHERE users.id = ?";
+
+    @Override
+    public UserProfile getUserProfile(int id) throws DAOException {
+        Connection connection = null;
+        PreparedStatement statement = null;
+        ResultSet resultSet = null;
+        try {
+            connection = connectionPool.takeConnection();
+
+            statement = connection.prepareStatement(SELECT_PROFILE_SQL);
+            statement.setInt(1, id);
+
+            resultSet = statement.executeQuery();
+            if (resultSet.next()) {
+                String login = resultSet.getString(USERS_LOGIN_COLUMN);
+                String surname = resultSet.getString(USERSINFO_SURNAME_COLUMN);
+                String name = resultSet.getString(USERSINFO_NAME_COLUMN);
+                String email = resultSet.getString(USERS_EMAIL_COLUMN);
+                String role = resultSet.getString(ROLES_TITLE_COLUMN);
+                String country = resultSet.getString(USERSINFO_COUNTRY_COLUMN);
+
+                return new UserProfile(login, name, email, surname, country, role);
+            }
+
+            return null;
+        } catch (ConnectionPoolException | SQLException e){
+            e.printStackTrace();
             throw new DAOException(e);
         } finally {
             connectionPool.closeConnection(resultSet, statement, connection);

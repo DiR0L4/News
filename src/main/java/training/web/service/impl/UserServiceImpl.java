@@ -3,6 +3,7 @@ package training.web.service.impl;
 import training.web.bean.AuthInfo;
 import training.web.bean.RegistrationInfo;
 import training.web.bean.User;
+import training.web.bean.UserProfile;
 import training.web.dao.exception.DAOException;
 import training.web.dao.DAOProvider;
 import training.web.dao.UserDAO;
@@ -55,6 +56,15 @@ public class UserServiceImpl implements UserService {
             return userDAO.rememberMe(login);
         } catch (DAOException e) {
             throw new ServiceException("An error occurred while trying to get token", e);
+        }
+    }
+
+    @Override
+    public UserProfile getUserProfile(int id) throws ServiceException {
+        try {
+            return userDAO.getUserProfile(id);
+        } catch (DAOException e) {
+            throw new ServiceException("An error occurred while trying to get profile", e);
         }
     }
 }
